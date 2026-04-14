@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mujoco model="EG2-4C2">
+  <compiler angle="radian" meshdir="meshes/" coordinate="local" />
+  <option gravity="0 0 -9.81" timestep="0.002" />
+  <asset>
+    <mesh name="mesh_4C2_baselink" file="4C2_baselink.STL" />
+    <mesh name="mesh_4C2_Link1" file="4C2_Link1.STL" />
+    <mesh name="mesh_4C2_Link5" file="4C2_Link5.STL" />
+    <mesh name="mesh_4C2_Link2" file="4C2_Link2.STL" />
+    <mesh name="mesh_4C2_Link3" file="4C2_Link3.STL" />
+    <mesh name="mesh_4C2_Link4" file="4C2_Link4.STL" />
+    <mesh name="mesh_4C2_Link6" file="4C2_Link6.STL" />
+    </asset>
+
+  <worldbody>
+    <body name="4C2_baselink">
+      <inertial pos="1.5645e-05 -4.1838e-06 0.038" mass="0.072633" fullinertia="5.095e-05 6.0883e-05 1.933e-05 -7.3167e-13 2.0229e-08 -4.5583e-09" />
+      <geom group="1" type="mesh" mesh="mesh_4C2_baselink" />
+      <geom group="3" rgba="0.75294 0.75294 0.75294 1" type="mesh" mesh="mesh_4C2_baselink" />
+      <body name="4C2_Link1" pos="-0.04 -0.009 0.079">
+        <inertial pos="0.0087669 0.009 0.013992" mass="0.0024292" fullinertia="5.1061e-07 5.7398e-07 2.6747e-07 -8.6739e-19 -2.508e-07 -1.3667e-18" />
+        <joint name="4C2_Joint1" type="hinge" axis="0 -1 0" range="0 0.82" damping="0.005"/>
+        <geom group="1" type="mesh" mesh="mesh_4C2_Link1" />
+        <geom group="3" rgba="0.75294 0.75294 0.75294 1" type="mesh" mesh="mesh_4C2_Link1" />
+        <!-- <body name="4C2_Link5" pos="0.0223 0.003 0.035591">
+          <inertial pos="0.011864 0.006 0.011367" mass="0.0045068" fullinertia="5.1288e-07 5.3203e-07 2.009e-07 -9.8137e-14 -9.4703e-08 -6.212e-14" />
+          <joint name="4C2_Joint5" type="hinge" axis="0 1 0" range="0 0.82" damping="0.02"/>
+          <geom group="1" type="mesh" mesh="mesh_4C2_Link5" />
+          <geom group="3" rgba="0.75294 0.75294 0.75294 1" type="mesh" mesh="mesh_4C2_Link5" />
+          <site name="pin_4C2_Link5_to_4C2_Link2" pos="0.01 -0.0007 0.002" size="0.0007" rgba="0 0.8 1 1" />
+        </body> -->
+      </body>
+      <body name="4C2_Link2" pos="-0.03 -0.009 0.081">
+        <inertial pos="0.0087435 0.009 0.013955" mass="0.0038971" fullinertia="5.6941e-07 6.2305e-07 3.0871e-07 -1.0711e-18 -2.6891e-07 -1.6845e-18" />
+        <joint name="4C2_Joint2" type="hinge" axis="0 -1 0" range="0 0.82" damping="0.01"/>
+        <geom group="1" type="mesh" mesh="mesh_4C2_Link2" />
+        <geom group="3" rgba="0.75294 0.75294 0.75294 1" type="mesh" mesh="mesh_4C2_Link2" />
+        <site name="pin_4C2_Link2_to_4C2_Link5" pos="0.0223 0.003 0.035591" size="0.0007" rgba="0 1 0.4 1" />
+      </body>
+
+      <!-- <body name="4C2_Link5" pos="0.04 0.003 0.035591">
+        <inertial pos="0.011864 0.006 0.011367" mass="0.0045068" fullinertia="5.1288e-07 5.3203e-07 2.009e-07 -9.8137e-14 -9.4703e-08 -6.212e-14" />
+        <joint name="4C2_Joint5" type="hinge" axis="0 1 0" range="0 0.82" />
+        <geom group="1" type="mesh" mesh="mesh_4C2_Link5" />
+        <geom group="3" rgba="0.75294 0.75294 0.75294 1" type="mesh" mesh="mesh_4C2_Link5" />
+        <site name="pin_4C2_Link5_to_4C2_Link2" pos="0.01 -0.0007 0.002" size="0.0007" rgba="0 0.8 1 1" />
+      </body> -->
+     <!-- <body name="4C2_Link3" pos="0.03 -0.009 0.081">
+        <inertial pos="-0.0087435 0.009 0.013955" mass="0.0038971" fullinertia="5.6941e-07 6.2305e-07 3.0871e-07 1.0666e-18 2.6891e-07 -1.8084e-18" />
+        <joint name="4C2_Joint3" type="hinge" axis="0 -1 0" range="-0.82 0" />
+        <geom group="1" type="mesh" mesh="mesh_4C2_Link3" />
+        <geom group="3" rgba="0.75294 0.75294 0.75294 1" type="mesh" mesh="mesh_4C2_Link3" />
+        <site name="pin_4C2_Link3_to_4C2_Link6" pos="-0.0199448161 0.0111611372 0.0341863181" size="0.0007" rgba="0 1 0.4 1" />
+        </body>
+      <body name="4C2_Link4" pos="0.04 -0.009 0.079">
+        <inertial pos="-0.0087669 0.009 0.013992" mass="0.0024292" fullinertia="5.1061e-07 5.7398e-07 2.6747e-07 -9.5279e-19 2.508e-07 7.6863e-19" />
+        <joint name="4C2_Joint4" type="hinge" axis="0 -1 0" range="-0.82 0" />
+        <geom group="1" type="mesh" mesh="mesh_4C2_Link4" />
+        <geom group="3" rgba="0.75294 0.75294 0.75294 1" type="mesh" mesh="mesh_4C2_Link4" />
+        <body name="4C2_Link6" pos="-0.0223 0.003 0.035591">
+          <inertial pos="-0.011864 0.006 0.011367" mass="0.0045068" fullinertia="5.1288e-07 5.3203e-07 2.009e-07 -9.8137e-14 9.4703e-08 6.2119e-14" />
+          <joint name="4C2_Joint6" type="hinge" axis="0 -1 0" range="0 0.82" />
+          <geom group="1" type="mesh" mesh="mesh_4C2_Link6" />
+          <geom group="3" rgba="0.75294 0.75294 0.75294 1" type="mesh" mesh="mesh_4C2_Link6" />
+          <site name="pin_4C2_Link6_to_4C2_Link3" pos="-0.00764481607 0.00816113723 0.000595318068" size="0.0007" rgba="0 0.8 1 1" />
+        </body>
+      </body> -->
+    </body>
+  </worldbody>
+
+  <actuator>
+    <position ctrllimited="true" ctrlrange="0 0.82" gear="0.8" joint="4C2_Joint1" />
+    <position ctrllimited="true" ctrlrange="0 0.82" gear="0.45" joint="4C2_Joint2" />
+  </actuator>
+
+
+  <equality>
+    <!-- <joint name="mimic_j1_j5" joint1="4C2_Joint1" joint2="4C2_Joint5" polycoef="0 1 0 0 0" /> -->
+    <!-- <joint name="mimic_j1_j2" joint1="4C2_Joint1" joint2="4C2_Joint2" polycoef="0 1 0 0 0" /> -->
+  </equality>
+
+</mujoco>
+
+  <!-- <equality>
+    <connect site1="pin_4C2_Link5_to_4C2_Link2" site2="pin_4C2_Link2_to_4C2_Link5" solref="0.0001 1" solimp="0.1 0.95 0.0001" />  
+    <!-- <connect site1="pin_4C2_Link6_to_4C2_Link3" site2="pin_4C2_Link3_to_4C2_Link6" solref="0.001 1" solimp="0.9 0.95 0.001" /> -->
+  </equality> -->
+</mujoco>

@@ -1,0 +1,149 @@
+<mujoco model="ECO63-B-URDF">
+  <compiler angle="radian" meshdir="./meshes/" autolimits="true"/>
+
+  <option integrator="implicitfast"/>
+
+  <default>
+      <default class="ur5e">
+          <material specular="0.5" shininess="0.25"/>
+          <joint axis="0 1 0" range="-6.28319 6.28319" armature="0.1"/>
+          <general gaintype="fixed" biastype="affine" ctrlrange="-6.2831 6.2831" gainprm="4000" biasprm="0 -4000 -400"
+              forcerange="-150 150"/>
+
+          <default class="size3">
+
+              <default class="size3_limited">
+                  <joint range="-3.1415 3.1415"/>
+                  <general ctrlrange="-3.1415 3.1415"/>
+              </default>
+
+              <default class="size3_joint1">
+                  <general gainprm="15000" biasprm="0 -15000 0" forcerange="-1000 1000"/>
+              </default>
+
+          </default>
+
+          <default class="size1">
+              <general gainprm="1000" biasprm="0 -1000 -100" forcerange="-28 28"/>
+          </default>
+
+          <default class="visual">
+              <geom type="mesh" contype="0" conaffinity="0" group="2"/>
+          </default>
+
+          <default class="collision">
+              <geom type="capsule" group="3"/>
+              <default class="eef_collision">
+                  <geom type="cylinder"/>
+              </default>
+          </default>
+          
+          <site size="0.001" rgba="0.5 0.5 0.5 0.3" group="4"/>
+
+          <default class="position">
+              <position ctrlrange="-6.28319 6.28319" kp="2000" kv="100" forcerange="-150 150"/>
+              <default class="position_limited">
+                  <position ctrlrange="-3.1415 3.1415"/>
+              </default>
+              <default class="position_small">
+                  <position kp="500" kv="25" forcerange="-28 28"/>
+              </default>
+              <default class="position_large">
+                  <position kp="10000" kv="500" forcerange="-200 200"/>
+              </default>
+          </default>
+
+      </default>
+  </default>  
+
+  <size njmax="500" nconmax="100" />
+
+  <visual>
+      <map force="0.1" zfar="30"/>
+      <rgba haze="0.15 0.25 0.35 1"/>
+      <quality shadowsize="2048"/>
+      <global offwidth="1280" offheight="720"/>
+  </visual>
+
+  <asset>
+    <mesh name="base_link" file="base_link.STL"/>
+    <mesh name="Link1" file="Link1.STL"/>
+    <mesh name="Link2" file="Link2.STL"/>
+    <mesh name="Link3" file="Link3.STL"/>
+    <mesh name="Link4" file="Link4.STL"/>
+    <mesh name="Link5" file="Link5.STL"/>
+    <mesh name="Link6" file="Link6.STL"/>
+  </asset>
+
+  <worldbody>
+    <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.792157 0.819608 0.933333 1" mesh="base_link"/>
+    <geom type="mesh" rgba="0.792157 0.819608 0.933333 1" mesh="base_link"/>
+
+    <!-- 俯视相机 -->
+    <camera name="top" pos="-0.50 0 1.5" quat="0 0 0 1" fovy="100"/>
+    <!-- 侧视相机 -->
+    <camera name="side" pos="-0.5 1 0.5" quat="0 0 0.70710678 0.70710678" fovy="80"/>   
+
+    <body name="Link1" pos="0 0 0.1625">
+      <inertial pos="-0.0309493 -0.00127286 -0.00524337" quat="0.459001 0.509366 0.541144 0.486855" mass="0.656375" diaginertia="0.0016259 0.00152656 0.000524076"/>
+      <joint name="joint_1" pos="0 0 0" axis="0 0 1" range="-3.105 3.105" actuatorfrcrange="-60 60"/>
+      <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.792157 0.819608 0.933333 1" mesh="Link1"/>
+      <geom type="mesh" rgba="0.792157 0.819608 0.933333 1" mesh="Link1"/>
+      <body name="Link2" pos="-0.086 0 0" quat="0.499998 0.5 -0.5 0.500002">
+        <inertial pos="0.194682 -1.86346e-07 0.0708743" quat="-5.23395e-06 0.711133 -1.49189e-06 0.703058" mass="5.26263" diaginertia="0.110695 0.109728 0.00402779"/>
+        <joint name="joint_2" pos="0 0 0" axis="0 0 -1" range="-3.105 2.355" actuatorfrcrange="-60 60"/>
+        <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.866667 0.866667 0.890196 1" mesh="Link2"/>
+        <geom type="mesh" rgba="0.866667 0.866667 0.890196 1" mesh="Link2"/>
+        <body name="Link3" pos="0.41 0 0" quat="-3.67317e-06 0.99999 1.60272e-08 0.00436329">
+          <inertial pos="0.17931 1.86929e-09 0.0308639" quat="0 0.696992 0 0.717078" mass="1.35093" diaginertia="0.0221745 0.0219803 0.000779666"/>
+          <joint name="joint_3" pos="0 0 0" axis="-0.00872652 0 0.999962" range="-2.93 2.756" actuatorfrcrange="-30 30"/>
+          <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.792157 0.819608 0.933333 1" mesh="Link3"/>
+          <geom type="mesh" rgba="0.792157 0.819608 0.933333 1" mesh="Link3"/>
+          <body name="Link4" pos="0.38049 0 -0.054981" quat="0.707099 -0.0030853 -0.00308531 0.707101">
+            <inertial pos="1.18738e-06 -0.00995388 0.0129237" quat="0.944729 -0.327853 3.92269e-05 0.000108029" mass="0.733001" diaginertia="0.000641257 0.000598547 0.000374243"/>
+            <joint name="joint_4" pos="0 0 0" axis="0 0 1" range="-3.105 3.105" actuatorfrcrange="-10 10"/>
+            <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.866667 0.866667 0.890196 1" mesh="Link4"/>
+            <geom type="mesh" rgba="0.866667 0.866667 0.890196 1" mesh="Link4"/>
+            <body name="Link5" pos="0 -0.11 -0.0006" quat="0.707105 0.707108 0 0">
+              <inertial pos="1.10374e-06 0.00366307 -0.0136223" quat="0.424397 0.905476 -0.000180003 4.47323e-05" mass="0.911748" diaginertia="0.00079725 0.000747085 0.000450976"/>
+              <joint name="joint_5" pos="0 0 0" axis="0 0 1" range="-3.105 3.105" actuatorfrcrange="-10 10"/>
+              <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.866667 0.866667 0.890196 1" mesh="Link5"/>
+              <geom type="mesh" rgba="0.866667 0.866667 0.890196 1" mesh="Link5"/>
+              <body name="Link6" pos="-0.00010641 0.0797 -0.00010731" quat="0.707105 -0.707108 0 0">
+                <inertial pos="0.000922882 -9.402e-05 -0.0127047" quat="0.501104 0.497701 -0.502663 0.498517" mass="0.0650354" diaginertia="3.19001e-05 2.11426e-05 1.81095e-05"/>
+                <joint name="joint_6" pos="0 0 0" axis="0 0 1" range="-6.28 6.28" actuatorfrcrange="-10 10"/>
+                <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.752941 0.752941 0.752941 1" mesh="Link6"/>
+                <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="Link6"/>
+                <body name="right_tool0" pos="0 0 0" quat="1 0 0 0">
+                  <geom name="right_tool0_x_shaft" type="cylinder" size="0.005 0.05" pos="0.05 0 0" zaxis="1 0 0" rgba="1 0 0 1" contype="0" conaffinity="0" group="1" class="visual"/>
+                  <geom name="right_tool0_y_shaft" type="cylinder" size="0.005 0.05" pos="0 0.05 0" zaxis="0 1 0" rgba="0 1 0 1" contype="0" conaffinity="0" group="1" class="visual"/>
+                  <geom name="right_tool0_z_shaft" type="cylinder" size="0.005 0.05" pos="0 0 0.05" zaxis="0 0 1" rgba="0 0 1 1" contype="0" conaffinity="0" group="1" class="visual"/>
+                  <site name="right_tool0_site" size="0.01" pos="0 0 0" rgba="0 1 0 1" group="1"/>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+      <position class="position" name="motor_1" joint="joint_1"/>
+      <position class="position" name="motor_2" joint="joint_2"/>
+      <position class="position_limited" name="motor_3" joint="joint_3"/>
+      <position class="position_small" name="motor_4" joint="joint_4"/>
+      <position class="position_small" name="motor_5" joint="joint_5"/>
+      <position class="position_small" name="motor_6" joint="joint_6"/>
+  </actuator>
+
+  <keyframe>
+      <key name="home" 
+                qpos="0.0331 0.8125 -1.4809 -0.2919 1.4877 0.0" 
+                ctrl="0.0331 0.8125 -1.4809 -0.2919 1.4877 0.0"/>
+      <key name="zero"
+                qpos="0 0 0 0 0 0"
+                ctrl="0 0 0 0 0 0"/>
+  </keyframe>
+
+</mujoco>

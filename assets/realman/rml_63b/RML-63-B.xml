@@ -1,0 +1,188 @@
+<mujoco model="RML-63">
+    <compiler angle="radian" meshdir="meshes" autolimits="true"/>
+
+    <option integrator="implicitfast"/>
+
+    <default>
+        <default class="ur5e">
+            <material specular="0.5" shininess="0.25"/>
+            <joint axis="0 1 0" range="-6.28319 6.28319" armature="0.1"/>
+            <general gaintype="fixed" biastype="affine" ctrlrange="-6.2831 6.2831" gainprm="4000" biasprm="0 -4000 -400"
+                forcerange="-150 150"/>
+
+            <default class="size3">
+
+                <default class="size3_limited">
+                    <joint range="-3.1415 3.1415"/>
+                    <general ctrlrange="-3.1415 3.1415"/>
+                </default>
+
+                <default class="size3_joint1">
+                    <general gainprm="15000" biasprm="0 -15000 0" forcerange="-1000 1000"/>
+                </default>
+
+            </default>
+
+            <default class="size1">
+                <general gainprm="1000" biasprm="0 -1000 -100" forcerange="-28 28"/>
+            </default>
+
+            <default class="visual">
+                <geom type="mesh" contype="0" conaffinity="0" group="2"/>
+            </default>
+
+            <default class="collision">
+                <geom type="capsule" group="3"/>
+                <default class="eef_collision">
+                    <geom type="cylinder"/>
+                </default>
+            </default>
+            
+            <site size="0.001" rgba="0.5 0.5 0.5 0.3" group="4"/>
+
+            <default class="position">
+                <position ctrlrange="-6.28319 6.28319" kp="2000" kv="100" forcerange="-150 150"/>
+                <default class="position_limited">
+                    <position ctrlrange="-3.1415 3.1415"/>
+                </default>
+                <default class="position_small">
+                    <position kp="500" kv="25" forcerange="-28 28"/>
+                </default>
+            </default>
+
+        </default>
+    </default>  
+
+    <size njmax="500" nconmax="100" />
+
+    <visual>
+        <map force="0.1" zfar="30"/>
+        <rgba haze="0.15 0.25 0.35 1"/>
+        <quality shadowsize="2048"/>
+        <global offwidth="1280" offheight="720"/>
+    </visual>
+
+    <asset>
+        <mesh name="base_link" file="base_link.STL" />
+        <mesh name="Link_1" file="Link_1.STL" />
+        <mesh name="Link_2" file="Link_2.STL" />
+        <mesh name="Link_3" file="Link_3.STL" />
+        <mesh name="Link_4" file="Link_4.STL" />
+        <mesh name="Link_5" file="Link_5.STL" />
+        <mesh name="Link_6" file="Link_6.STL" />
+
+        <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="512"/> 
+
+        <texture name="texplane" type="2d" builtin="checker" rgb1=".2 .3 .4" rgb2=".1 0.15 0.2" width="512" height="512" mark="cross" markrgb=".8 .8 .8"/>  
+
+        <texture name="texgeom" type="cube" builtin="flat" mark="cross" width="127" height="1278" 
+            rgb1="0.8 0.6 0.4" rgb2="0.8 0.6 0.4" markrgb="1 1 1" random="0.01"/>  
+
+        <material name="matplane" reflectance="0.3" texture="texplane" texrepeat="1 1" texuniform="true"/>
+
+        <material name="matgeom" texture="texgeom" texuniform="true" rgba="0.8 0.6 .4 1"/>
+
+    </asset>
+    
+    <worldbody>
+        <!-- <geom name="floor" pos="0 0 0" size="0 0 .25" type="plane" material="matplane" condim="3"/> -->
+        <!-- <geom type="mesh" rgba="0.86667 0.86667 0.8902 1" mesh="base_link" /> -->
+
+        <!-- 俯视相机 -->
+        <camera name="top" pos="-0.50 0 1.5" quat="0 0 0 1" fovy="100"/>
+        <!-- 侧视相机 -->
+        <camera name="side" pos="-0.5 1 0.5" quat="0 0 0.70710678 0.70710678" fovy="80"/>   
+
+        <light diffuse=".5 .5 .5" pos="0 0 4" dir="0 0 -1"/>
+        <!-- <geom name="floor" type="plane" size="3 3 0.1" rgba=".9 .9 .9 1"/> -->
+        
+        <!-- Common world frame named 'base' -->
+        <body name="base" pos="0 0 0">
+            <!-- Optional: a visual for the world base -->
+            <!-- <geom type="sphere" size="0.05" rgba="0.5 0.5 0.5 0.5"/> -->
+        </body>
+
+        <body name="arm_base" pos="0 0 0" quat="0.9961947 0 -0.0871557 0">
+        <geom type="mesh" rgba="0.86667 0.86667 0.8902 1" mesh="base_link" />
+        
+            <body name="Link_1" pos="0 0 0.1625">
+                <inertial pos="-0.030909 -0.0013023 -0.0053121" quat="0.458461 0.509891 0.540505 0.487523" mass="1.7668" diaginertia="0.00438773 0.00412053 0.00141344" />
+                <joint name="joint_1" pos="0 0 0" axis="0 0 1" class="size3_joint1"/>
+                <geom type="mesh" rgba="1 1 1 1" mesh="Link_1" />
+
+                <body name="Link_2" pos="-0.086 0 0" quat="0.499998 -0.5 -0.5 -0.500002">
+                    <inertial pos="0.16852 9.8217e-07 -0.077258" quat="-2.29515e-05 0.707126 -2.62492e-05 0.707087" mass="4.3415" diaginertia="0.075923 0.075435 0.0028306" />
+                    <joint name="joint_2" pos="0 0 0" axis="0 0 1" range="-3.107 3.107" class="size3"/>
+                    <geom type="mesh" rgba="0.86667 0.86667 0.8902 1" mesh="Link_2" />
+
+                    <body name="Link_3" pos="0.38 0 0" quat="0.707105 0 0 0.707108">
+                        <inertial pos="0.034488 -0.010948 -0.0056239" quat="0.0395407 0.573204 -0.224356 0.787108" mass="1.7286" diaginertia="0.00297857 0.00290646 0.000990373" />
+                        <joint name="joint_3" pos="0 0 0" axis="0 0 1" range="-3.107 2.531" class="size3_limited"/>
+                        <geom type="mesh" rgba="0.86667 0.86667 0.8902 1" mesh="Link_3" />
+
+                        <body name="Link_4" pos="0.069 -0.405 0" quat="0.707105 0.707108 0 0">
+                            <inertial pos="4.1778e-07 -0.030483 -0.19739" quat="0.697797 0.0916572 -0.0925284 0.704356" mass="2.4734" diaginertia="0.0260234 0.02602 0.00130961" />
+                            <joint name="joint_4" pos="0 0 0" axis="0 0 1" range="-3.107 3.107" class="size1"/>
+                            <geom type="mesh" rgba="0.86667 0.86667 0.8902 1" mesh="Link_4" />
+
+                            <body name="Link_5" pos="0 0 0" quat="-2.59734e-06 -2.59735e-06 0.707108 0.707105">
+                                <inertial pos="5.2596e-06 0.025125 -0.0072574" quat="0.605044 0.796192 -1.75537e-05 -1.49913e-06" mass="0.93162" diaginertia="0.0012563 0.0011616 0.000489697" />
+                                <joint name="joint_5" pos="0 0 0" axis="0 0 1" range="-3.107 3.107" class="size1"/>
+                                <geom type="mesh" rgba="0.86667 0.86667 0.8902 1" mesh="Link_5" />
+
+                                <body name="Link_6" pos="-0.00010308 0.115 -0.00010734" quat="-2.59734e-06 -2.59735e-06 0.707108 0.707105">
+                                    <inertial pos="-0.00092265 9.4391e-05 -0.012705" quat="0.502653 0.498519 -0.501099 0.497714" mass="0.065037" diaginertia="3.19001e-05 2.11441e-05 1.81088e-05" />
+                                    <joint name="joint_6" pos="0 0 0" axis="0 0 -1" range="-3.14 3.14" class="size1"/>
+                                    <geom type="mesh" rgba="1 1 1 1" mesh="Link_6" />
+                                    <geom class="eef_collision" pos="0 0.08 0" quat="1 1 0 0" size="0.04 0.02"/>
+                                    <site name="right_attachment_site" size="0.01" pos="0 0.001 0" quat="-1 1 1 1" rgba="1 0 0 1" group="1"/>
+                                    <body name="right_tool0" pos="0 0 0" quat="1 0 0 0">
+                                        <geom name="right_tool0_x_shaft" type="cylinder" size="0.005 0.05" pos="0.05 0 0" zaxis="1 0 0" rgba="1 0 0 1" contype="0" conaffinity="0" group="1" class="visual"/>
+                                        <geom name="right_tool0_y_shaft" type="cylinder" size="0.005 0.05" pos="0 0.05 0" zaxis="0 1 0" rgba="0 1 0 1" contype="0" conaffinity="0" group="1" class="visual"/>
+                                        <geom name="right_tool0_z_shaft" type="cylinder" size="0.005 0.05" pos="0 0 0.05" zaxis="0 0 1" rgba="0 0 1 1" contype="0" conaffinity="0" group="1" class="visual"/>
+                                        <site name="right_tool0_site" size="0.01" pos="0 0 0" rgba="0 1 0 1" group="1"/>
+                                    </body>
+                                </body>
+
+                            </body>
+
+                        </body>
+
+                    </body>
+
+                </body>
+
+            </body>
+
+        </body>
+
+    </worldbody>
+
+    <!-- <actuator>
+        <general class="size3_joint1" name="motor_1" joint="joint_1"/>
+        <general class="size3" name="motor_2" joint="joint_2"/>
+        <general class="size3_limited" name="motor_3" joint="joint_3"/>
+        <general class="size1" name="motor_4" joint="joint_4"/>
+        <general class="size1" name="motor_5" joint="joint_5"/>
+        <general class="size1" name="motor_6" joint="joint_6"/>
+    </actuator> -->
+
+    <actuator>
+        <position class="position" name="motor_1" joint="joint_1"/>
+        <position class="position" name="motor_2" joint="joint_2"/>
+        <position class="position_limited" name="motor_3" joint="joint_3"/>
+        <position class="position_small" name="motor_4" joint="joint_4"/>
+        <position class="position_small" name="motor_5" joint="joint_5"/>
+        <position class="position_small" name="motor_6" joint="joint_6"/>
+    </actuator>
+
+    <keyframe>
+        <key name="home"
+                 qpos="0.07490953 0.64289203 -1.64362892 -0.12920672 -0.55447365 0.04040437"
+                 ctrl="0.07490953 0.64289203 -1.64362892 -0.12920672 -0.55447365 0.04040437"/>
+        <key name="zero"
+                 qpos="0 0 0 0 0 0"
+                 ctrl="0 0 0 0 0 0"/>
+    </keyframe>
+
+</mujoco>
