@@ -151,9 +151,6 @@ def main(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Replay robot episodes interactively')
-    # parser.add_argument('--data_dir', action='store', type=str,
-    #                     default="/media/hca_research/Dalen-W/Data/Pi-0.5/Task1",
-    #                     help='Directory containing episode files')
     parser.add_argument('--data_dir', action='store', type=str,
                         default="./data/test",
                         help='Directory containing episode files')
